@@ -2,21 +2,36 @@
 <html>
 <head>
     <title>Caesar Cipher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1>Caesar Cipher</h1>
+    <h1 class="my-[50px] text-center text-[32px] font-bold col-span-2">Caesar Cipher</h1>
+    <div class="bg-[#EEEEEE] justify-center flex flex-col flex-wrap mx-[20%] p-[50px] gap-[20px]">  
+        <div class="grid grid-cols-4 gap-[20px]">
+            <label for="text">Nhập văn bản:</label>
+            <textarea class="border-2 col-span-3" id="text" rows="4" cols="50"></textarea> 
+        </div> 
+        <div class="grid grid-cols-4 gap-[20px]">
+            <label for="result">Kết quả:</label>
+            <textarea class="border-2 col-span-3" id="result" rows="4" cols="50"></textarea>
+        </div>
+        
+        <div class="grid grid-cols-4 gap-[20px]">
+            <label for="shift">Số lần dịch (K):</label>
+            <input class="text-[16px] h-[30px]" type="number" id="shift" min="1" max="25" value="3">
+        </div> 
+        <div class="flex justify-center gap-[50px]"> 
+            <button class="w-[200px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="encode()">Mã hóa</button>
+            <button class="w-[200px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onclick="decode()">Giải mã</button>  
+        </div>
+    </div>
     
-    <label for="text">Nhập văn bản:</label>
-    <textarea id="text" rows="4" cols="50"></textarea>
     
-    <label for="shift">Số lần dịch (K):</label>
-    <input type="number" id="shift" min="1" max="25" value="3">
     
-    <button onclick="encode()">Mã hóa</button>
-    <button onclick="decode()">Giải mã</button>
     
-    <label for="result">Kết quả:</label>
-    <textarea id="result" rows="4" cols="50"></textarea>
+    
+    
+    
     
     <script>
         function encode() {
