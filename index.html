@@ -14,7 +14,7 @@
 
 <body>
     <h1 class="my-[50px] text-center text-[32px] font-bold col-span-2">Caesar Cipher</h1>
-    <div class="bg-[#EEEEEE] justify-center flex flex-col flex-wrap mx-[20%] p-[50px] gap-[20px]">  
+    <div class="bg-[#EEEEEE] justify-center flex flex-col flex-wrap mx-[40px] p-[50px] gap-[20px]">  
         <div class="grid grid-cols-4 gap-[20px]">
             <label for="text">Nhập văn bản:</label>
             <textarea class="border-2 col-span-3" id="text" rows="4" cols="50"></textarea> 
@@ -47,24 +47,24 @@
     
     <script>
         function encode() {
-            var text = document.getElementById("text").value;
+            var text = document.getElementById("text").value.trim();
             var shift = parseInt(document.getElementById("shift").value);
             var result = ""; 
-            let idArr = ''
-            let eArr = ''
+            let idArr = []
+            let eArr = []
             
             for (var i = 0; i < text.length; i++) {
                 var charCode = text.charCodeAt(i);
                 if (charCode >= 65 && charCode <= 90) {
                     // Mã hoá chữ cái hoa
                     result += String.fromCharCode(((charCode - 65 + shift) % 26) + 65);
-                    idArr += charCode - 65
-                    eArr += ((charCode - 65 + shift + 26) % 26)
+                    idArr.push(charCode - 65)
+                    eArr.push((charCode - 65 + shift + 26) % 26)
                 } else if (charCode >= 97 && charCode <= 122) {
                     // Mã hoá chữ cái thường
                     result += String.fromCharCode(((charCode - 97 + shift) % 26) + 97); 
-                    idArr += charCode - 97
-                    eArr += ((charCode - 97 + shift + 26) % 26)
+                    idArr.push(charCode - 97)
+                    eArr.push((charCode - 97 + shift + 26) % 26)
                 } else {
                     // Không thay đổi ký tự không phải chữ cái
                     result += text[i];
@@ -75,30 +75,30 @@
         }
         
         function decode() {
-            var text = document.getElementById("text").value;
+            var text = document.getElementById("text").value.trim();
             var shift = parseInt(document.getElementById("shift").value);
             var result = "";
-            let idArr = ''
-            let eArr = ''
+            let idArr = []
+            let eArr = []
             
             for (var i = 0; i < text.length; i++) {
                 var charCode = text.charCodeAt(i);
                 if (charCode >= 65 && charCode <= 90) {
                     // Giải mã chữ cái hoa
                     result += String.fromCharCode(((charCode - 65 - shift + 26) % 26) + 65);
-                    idArr += charCode - 65
-                    eArr += ((charCode - 65 - shift + 26) % 26)
+                    idArr.push(charCode - 65)
+                    eArr.push((charCode - 65 - shift + 26) % 26)
                 } else if (charCode >= 97 && charCode <= 122) {
                     // Giải mã chữ cái thường
                     result += String.fromCharCode(((charCode - 97 - shift + 26) % 26) + 97);
-                    idArr += charCode - 97
-                    eArr += ((charCode - 97 - shift + 26) % 26)
+                    idArr.push(charCode - 97)
+                    eArr.push((charCode - 97 - shift + 26) % 26)
                 } else {
                     // Không thay đổi ký tự không phải chữ cái
                     result += text[i];
                 }
             }
-            
+            createTable(text, idArr, eArr, result) 
             document.getElementById("result").value = result;
         }
 
@@ -109,7 +109,10 @@
 
             // Tạo header row
             var headerRow = document.createElement("tr");
-            headerRow.className = `grid grid-cols-${n + 1}`
+            headerRow.className = `grid grid-cols-${n + 1} `
+            if (n > 12) {
+                headerRow.style.cssText = `grid-template-columns: repeat(${n + 1}, minmax(0, 1fr))`
+            }
             for (var i = 0; i <= n; i++) {
                 var th = document.createElement("th");
                 i == 0 ? th.textContent = 'Ký tự ban đầu' : th.textContent = inputText[i - 1] 
@@ -122,6 +125,9 @@
             for (var row = 1; row <= 3; row++) {
                 var dataRow = document.createElement("tr");
                 dataRow.className = `grid grid-cols-${n + 1} text-center`  
+                if (n > 12) {
+                    dataRow.style.cssText = `grid-template-columns: repeat(${n + 1}, minmax(0, 1fr))`
+                }
                 for (var col = 0; col <= n; col++) {
                     var td = document.createElement("td"); 
 
