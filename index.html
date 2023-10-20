@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caesar Cipher</title>
+</head>
+<body>
+    <h1>Caesar Cipher</h1>
+    
+    <label for="text">Nhập văn bản:</label>
+    <textarea id="text" rows="4" cols="50"></textarea>
+    
+    <label for="shift">Số lần dịch (K):</label>
+    <input type="number" id="shift" min="1" max="25" value="3">
+    
+    <button onclick="encode()">Mã hóa</button>
+    <button onclick="decode()">Giải mã</button>
+    
+    <label for="result">Kết quả:</label>
+    <textarea id="result" rows="4" cols="50"></textarea>
+    
+    <script>
+        function encode() {
+            var text = document.getElementById("text").value;
+            var shift = parseInt(document.getElementById("shift").value);
+            var result = "";
+            
+            for (var i = 0; i < text.length; i++) {
+                var charCode = text.charCodeAt(i);
+                if (charCode >= 65 && charCode <= 90) {
+                    // Mã hoá chữ cái hoa
+                    result += String.fromCharCode(((charCode - 65 + shift) % 26) + 65);
+                } else if (charCode >= 97 && charCode <= 122) {
+                    // Mã hoá chữ cái thường
+                    result += String.fromCharCode(((charCode - 97 + shift) % 26) + 97);
+                } else {
+                    // Không thay đổi ký tự không phải chữ cái
+                    result += text[i];
+                }
+            }
+            
+            document.getElementById("result").value = result;
+        }
+        
+        function decode() {
+            var text = document.getElementById("text").value;
+            var shift = parseInt(document.getElementById("shift").value);
+            var result = "";
+            
+            for (var i = 0; i < text.length; i++) {
+                var charCode = text.charCodeAt(i);
+                if (charCode >= 65 && charCode <= 90) {
+                    // Giải mã chữ cái hoa
+                    result += String.fromCharCode(((charCode - 65 - shift + 26) % 26) + 65);
+                } else if (charCode >= 97 && charCode <= 122) {
+                    // Giải mã chữ cái thường
+                    result += String.fromCharCode(((charCode - 97 - shift + 26) % 26) + 97);
+                } else {
+                    // Không thay đổi ký tự không phải chữ cái
+                    result += text[i];
+                }
+            }
+            
+            document.getElementById("result").value = result;
+        }
+    </script>
+</body>
+</html>
