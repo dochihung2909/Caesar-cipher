@@ -110,7 +110,7 @@
             // Tạo header row
             var headerRow = document.createElement("tr");
             headerRow.className = `grid grid-cols-${n + 1} `
-            if (n > 12) {
+            if (n >= 12) {
                 headerRow.style.cssText = `grid-template-columns: repeat(${n + 1}, minmax(0, 1fr))`
             }
             for (var i = 0; i <= n; i++) {
@@ -125,7 +125,7 @@
             for (var row = 1; row <= 3; row++) {
                 var dataRow = document.createElement("tr");
                 dataRow.className = `grid grid-cols-${n + 1} text-center`  
-                if (n > 12) {
+                if (n >= 12) {
                     dataRow.style.cssText = `grid-template-columns: repeat(${n + 1}, minmax(0, 1fr))`
                 }
                 for (var col = 0; col <= n; col++) {
