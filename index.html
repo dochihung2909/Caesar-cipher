@@ -13,6 +13,7 @@
 </style>
 
 <body>
+    <div class="px-[40px] my-[50px]  table w-full"></div>
     <div>
         <h1 class="my-[50px] text-center text-[32px] font-bold col-span-2">Caesar Cipher</h1>
         <div class="bg-[#EEEEEE] justify-center flex flex-col flex-wrap mx-[40px] p-[50px] gap-[20px]">  
@@ -66,12 +67,38 @@
                 
             </div>
         </div>   
-    </div>
-    
-    
-    
+    </div> 
    
     <script src="./ceasar.js"></script>
     <script src="./vigenere.js" defer></script>
+    <script>
+        let printTable = function() {
+            var table = document.createElement("table"); 
+            table.className = 'w-full'
+            
+        
+            for (var row = 0; row < 2; row++) {
+                var dataRow = document.createElement("tr");
+                dataRow.className = `grid text-center`  
+                dataRow.style.cssText = `grid-template-columns: repeat(26, minmax(0, 1fr))`  
+                for (var col = 0; col < 26; col++) { 
+                    var td = document.createElement("td");  
+                    if (row == 0) {
+                        td.innerText = String.fromCharCode((col) % 26 + 65) 
+                    } else {
+                        td.innerText = col
+                    }
+                    dataRow.appendChild(td);
+                }
+                table.appendChild(dataRow);
+            }
+        
+            var tableContainer = document.querySelector(".table"); 
+        
+            console.log(tableContainer)
+            tableContainer.innerHTML = ""; // Xóa nội dung cũ nếu có
+            tableContainer.appendChild(table);
+        }()
+    </script>
 </body>
 </html>
