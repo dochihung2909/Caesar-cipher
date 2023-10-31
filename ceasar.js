@@ -59,6 +59,8 @@ function createTable(inputText, idArr, eArr, result) {
     result = result.replace(/\s/g, '')
     var n = inputText.length; 
     var table = document.createElement("table");
+    table.setAttribute('id', 'ceasar_table')
+ 
 
     // Tạo header row
     var headerRow = document.createElement("tr");
@@ -101,4 +103,16 @@ function createTable(inputText, idArr, eArr, result) {
     var tableContainer = document.getElementById("tableContainer");
     tableContainer.innerHTML = ""; // Xóa nội dung cũ nếu có
     tableContainer.appendChild(table);
+    tableContainer.insertAdjacentHTML('beforeend', '<button id="copy_ceasar" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg mt-4" data-clipboard-target="#ceasar_table">Copy Table</button>')
+ 
+
+    var clipboard = new ClipboardJS('#copy_ceasar');
+
+    clipboard.on('success', function(e) {
+        var button = document.getElementById("copy_ceasar");
+            button.classList.add("bg-green-500");
+        setTimeout(function() {
+            button.classList.remove("bg-green-500");
+        }, 1000);
+    }); 
 }

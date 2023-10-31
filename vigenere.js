@@ -58,15 +58,16 @@ window.addEventListener('DOMContentLoaded', function() {
       
 
     function createTable(inputText, key, result) {     
-        var table = document.createElement("table"); 
-        table.className = 'w-full'
+        var table = document.createElement("table");  
+        table.setAttribute('id', 'vigenere_table')
+
+        console.log(table)
          
         const headerArr = ['i', 'Ký tự khoá', 'k', '(i + k) mod N', 'Ký tự mới']  
 
         inputText = inputText.replace(/\s/g, '')
         result = result.replace(/\s/g, '')
-        var n = inputText.length; 
-        var table = document.createElement("table");
+        var n = inputText.length;  
 
         // Tạo header row
         var headerRow = document.createElement("tr");
@@ -112,7 +113,18 @@ window.addEventListener('DOMContentLoaded', function() {
         var tableContainer = document.querySelector(".vigenere_table"); 
      
         tableContainer.innerHTML = ""; // Xóa nội dung cũ nếu có
-        tableContainer.appendChild(table);
+        tableContainer.appendChild(table); 
+        tableContainer.insertAdjacentHTML('beforeend', '<button id="copy_vigenere" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg mt-4" data-clipboard-target="#vigenere_table">Copy Table</button>')
+
+        var clipboard = new ClipboardJS('#copy_vigenere');
+
+        clipboard.on('success', function() {
+            var button = document.getElementById("copy_vigenere");
+            button.classList.add("bg-green-500");
+            setTimeout(function() {
+                button.classList.remove("bg-green-500");
+            }, 1000);
+        }); 
     }
  
 }) 
